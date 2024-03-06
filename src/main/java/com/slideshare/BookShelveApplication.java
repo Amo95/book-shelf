@@ -1,13 +1,13 @@
-package com.bookshelve;
+package com.slideshare;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BookshelveApplication {
+public class BookShelveApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BookshelveApplication.class, args);
+        SpringApplication.run(BookShelveApplication.class, args);
     }
 
 }
