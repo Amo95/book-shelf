@@ -1,10 +1,10 @@
-package com.bookshelve;
+package com.slideshare;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BookshelveApplicationTests {
+class BookShelveApplicationTests {
 
     @Test
     void contextLoads() {
