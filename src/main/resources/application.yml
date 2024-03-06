@@ -1,16 +1,18 @@
-server:
-  port: 8099
 spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/slideshare
-    username: postgres
-    password: postgres
+  application:
+    name: spring-security
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/authenticated_users
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+server:
+  port: 8091

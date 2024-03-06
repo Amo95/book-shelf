@@ -1,8 +1,8 @@
 package com.slideshare.service;
 
 import com.slideshare.dto.request.AuthenticationRequest;
-import com.slideshare.dto.response.AuthenticationResponse;
+import com.slideshare.dto.response.JwtAuthenticationResponse;
 
 public interface AuthenticationService {
-    AuthenticationResponse signUp(AuthenticationRequest request);
+    JwtAuthenticationResponse signUp(AuthenticationRequest request);
 }
