@@ -1,4 +1,4 @@
-package com.slideshare.dto.request;
+package com.slideshare.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequest {
-    private String indexNumber;
-    private String email;
-    private String password;
+public class JwtAuthenticationResponse {
+    private String token;
 }
