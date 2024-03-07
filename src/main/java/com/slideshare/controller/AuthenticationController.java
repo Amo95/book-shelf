@@ -1,6 +1,7 @@
 package com.slideshare.controller;
 
-import com.slideshare.dto.request.AuthenticationRequest;
+import com.slideshare.dto.request.signinRequest;
+import com.slideshare.dto.request.signupRequest;
 import com.slideshare.dto.response.JwtAuthenticationResponse;
 import com.slideshare.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,12 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody AuthenticationRequest request) {
+    public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody signupRequest request) {
         return ResponseEntity.ok(authenticationService.signUp(request));
+    }
+
+    @PostMapping("signin")
+    public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody signinRequest request) {
+        return ResponseEntity.ok(authenticationService.signIn(request));
     }
 }
