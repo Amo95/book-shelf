@@ -19,7 +19,7 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.signUp(request));
     }
