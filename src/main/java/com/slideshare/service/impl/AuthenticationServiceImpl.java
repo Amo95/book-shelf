@@ -8,7 +8,6 @@ import com.slideshare.model.User;
 import com.slideshare.repository.UserRepository;
 import com.slideshare.service.AuthenticationService;
 import com.slideshare.service.JwtService;
-import com.slideshare.util.BasicMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,43 +19,43 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final BasicMapper basicMapper;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, BasicMapper basicMapper, AuthenticationManager authenticationManager) {
+    public AuthenticationServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
-        this.basicMapper = basicMapper;
         this.authenticationManager = authenticationManager;
     }
 
     @Override
     public JwtAuthenticationResponse signUp(signupRequest request) {
         User user = User.builder()
-                .indexNumber(request.getIndexNumber())
-                .email(request.getPassword())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .indexNumber(request.indexNumber())
+                .email(request.email())
+                .password(passwordEncoder.encode(request.password()))
                 .role(Role.USER)
                 .build();
         userRepository.save(user);
-        return basicMapper.convertTo( JwtAuthenticationResponse
+        return JwtAuthenticationResponse
                 .builder()
-                .token(jwtService.generateToken(user)), JwtAuthenticationResponse.class);
+                .token(jwtService.generateToken(user))
+                .build();
     }
 
     @Override
     public JwtAuthenticationResponse signIn(signinRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getIndexNumber(),
-                        request.getPassword())
+                        request.indexNumber(),
+                        request.password())
         );
 
-        User user = userRepository.findByIndexNumber(request.getIndexNumber())
+        User user = userRepository.findByIndexNumber(request.indexNumber())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid index number or password."));
-        return basicMapper.convertTo( JwtAuthenticationResponse
+        return JwtAuthenticationResponse
                 .builder()
-                .token(jwtService.generateToken(user)), JwtAuthenticationResponse.class);
+                .token(jwtService.generateToken(user))
+                .build();
     }
 }

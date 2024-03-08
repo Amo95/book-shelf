@@ -1,4 +1,4 @@
-package com.slideshare.controller;
+package com.slideshare.controller.authentication;
 
 import com.slideshare.dto.request.signinRequest;
 import com.slideshare.dto.request.signupRequest;
