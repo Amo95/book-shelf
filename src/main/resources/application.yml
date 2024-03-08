@@ -15,6 +15,6 @@ spring:
     username: postgres
     password: postgres
   config:
-    import: optional:token-key.properties
+    import: optional:token.properties
 server:
   port: 8091
