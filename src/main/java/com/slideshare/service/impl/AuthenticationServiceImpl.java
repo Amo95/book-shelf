@@ -8,7 +8,6 @@ import com.slideshare.model.User;
 import com.slideshare.repository.UserRepository;
 import com.slideshare.service.AuthenticationService;
 import com.slideshare.service.JwtService;
-import com.slideshare.util.BasicMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,14 +19,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final BasicMapper basicMapper;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, BasicMapper basicMapper, AuthenticationManager authenticationManager) {
+    public AuthenticationServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
-        this.basicMapper = basicMapper;
         this.authenticationManager = authenticationManager;
     }
 
