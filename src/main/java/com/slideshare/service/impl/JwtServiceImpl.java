@@ -1,12 +1,12 @@
 package com.slideshare.service.impl;
 
+import com.slideshare.config.TokenConfigProperties;
 import com.slideshare.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +19,14 @@ import java.util.function.Function;
 @Service
 public class JwtServiceImpl implements JwtService {
 
-    @Value("${token.signing.key}")
-    private String jwtSigningKey;
+//    @Value("${token.signing.key}")
+//    private String jwtSigningKey;
+
+    private final TokenConfigProperties configProperties;
+
+    public JwtServiceImpl(TokenConfigProperties configProperties) {
+        this.configProperties = configProperties;
+    }
 
     @Override
     public String extractUserName(String token) {
@@ -43,7 +49,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
+        byte[] keyBytes = Decoders.BASE64.decode(configProperties.signin_key());
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
