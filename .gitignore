@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### config env file ###
+!**/src/main/resources/token-key.properties
