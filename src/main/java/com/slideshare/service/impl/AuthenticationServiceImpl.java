@@ -34,29 +34,31 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public JwtAuthenticationResponse signUp(signupRequest request) {
         User user = User.builder()
-                .indexNumber(request.getIndexNumber())
-                .email(request.getPassword())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .indexNumber(request.indexNumber())
+                .email(request.email())
+                .password(passwordEncoder.encode(request.password()))
                 .role(Role.USER)
                 .build();
         userRepository.save(user);
-        return basicMapper.convertTo( JwtAuthenticationResponse
+        return JwtAuthenticationResponse
                 .builder()
-                .token(jwtService.generateToken(user)), JwtAuthenticationResponse.class);
+                .token(jwtService.generateToken(user))
+                .build();
     }
 
     @Override
     public JwtAuthenticationResponse signIn(signinRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getIndexNumber(),
-                        request.getPassword())
+                        request.indexNumber(),
+                        request.password())
         );
 
-        User user = userRepository.findByIndexNumber(request.getIndexNumber())
+        User user = userRepository.findByIndexNumber(request.indexNumber())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid index number or password."));
-        return basicMapper.convertTo( JwtAuthenticationResponse
+        return JwtAuthenticationResponse
                 .builder()
-                .token(jwtService.generateToken(user)), JwtAuthenticationResponse.class);
+                .token(jwtService.generateToken(user))
+                .build();
     }
 }
